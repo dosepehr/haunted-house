@@ -88,6 +88,8 @@ const floor = new THREE.Mesh(
 );
 floor.rotation.x = -Math.PI * 0.5;
 floor.position.y = 0;
+floor.receiveShadow = true;
+
 scene.add(floor);
 floor.geometry.setAttribute(
     'uv2',
@@ -109,6 +111,7 @@ const walls = new THREE.Mesh(
         roughnessMap: bricksRoughnessTexture,
     })
 );
+walls.castShadow = true;
 walls.geometry.setAttribute(
     'uv2',
     new THREE.Float32BufferAttribute(walls.geometry.attributes.uv.array, 2)
@@ -166,6 +169,11 @@ const bush4 = new THREE.Mesh(bushGeometry, bushMaterial);
 bush4.scale.set(0.15, 0.15, 0.15);
 bush4.position.set(-1, 0.05, 2.6);
 
+bush1.castShadow = true;
+bush2.castShadow = true;
+bush3.castShadow = true;
+bush4.castShadow = true;
+
 house.add(bush1, bush2, bush3, bush4);
 
 /**
@@ -181,6 +189,7 @@ for (let i = 0; i < 50; i++) {
     const x = Math.sin(angle) * radius;
     const z = Math.cos(angle) * radius;
     const grave = new THREE.Mesh(graveGeometry, graveMaterial);
+    grave.castShadow = true;
     grave.position.set(x, 0.3, z);
     grave.rotation.y = (Math.random() - 0.5) * 0.4;
     grave.rotation.z = (Math.random() - 0.5) * 0.4;
@@ -215,6 +224,17 @@ moonLightfolder.add(moonLight.position, 'y').min(0).max(5).step(0.001);
 moonLightfolder.add(moonLight.position, 'z').min(-2).max(5).step(0.001);
 
 const renderer = new THREE.WebGLRenderer({ canvas });
+
+/**
+ * shadows
+ */
+renderer.shadowMap.enabled = true;
+moonLight.castShadow = true;
+doorLight.castShadow = true;
+ghost1.castShadow = true;
+ghost2.castShadow = true;
+ghost3.castShadow = true;
+
 renderer.setSize(sizes.w, sizes.h);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor('#262837');

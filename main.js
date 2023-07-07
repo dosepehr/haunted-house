@@ -93,12 +93,17 @@ for (let i = 0; i < 50; i++) {
     graves.add(grave);
 }
 
-// lights
+/**
+ * lights
+ */
+const doorLight = new THREE.PointLight('#ff7d46', 1, 7);
+doorLight.position.set(0, 2.2, 2.7);
+house.add(doorLight);
 
-const ambientLight = new THREE.AmbientLight('#fff', 0.5);
+const ambientLight = new THREE.AmbientLight('#b5d5ff', 0.12);
 scene.add(ambientLight);
 
-const moonLight = new THREE.DirectionalLight('#fff', 0.5);
+const moonLight = new THREE.DirectionalLight('#b5d5ff', 0.12);
 moonLight.position.set(4, 5, -2);
 scene.add(moonLight);
 

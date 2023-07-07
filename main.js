@@ -10,7 +10,7 @@ const sizes = {
 };
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, sizes.w / sizes.h);
-camera.position.z = 5;
+camera.position.set(4, 2, 5);
 scene.add(camera);
 
 const floor = new THREE.Mesh(
@@ -20,8 +20,18 @@ const floor = new THREE.Mesh(
 floor.rotation.x = -Math.PI * 0.5;
 floor.position.y = 0;
 scene.add(floor);
+
+// lights
+
+const ambientLight = new THREE.AmbientLight('#fff', 0.5);
+scene.add(ambientLight);
+
+const moonLight = new THREE.DirectionalLight('#fff', 0.5);
+moonLight.position.set(4, 5, -2);
+
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.w, sizes.h);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;

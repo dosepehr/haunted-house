@@ -13,7 +13,13 @@ const camera = new THREE.PerspectiveCamera(75, sizes.w / sizes.h);
 camera.position.z = 5;
 scene.add(camera);
 
-
+const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(20, 20),
+    new THREE.MeshStandardMaterial({ color: '#a9c388' })
+);
+floor.rotation.x = -Math.PI * 0.5;
+floor.position.y = 0;
+scene.add(floor);
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.w, sizes.h);
 

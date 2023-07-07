@@ -9,11 +9,21 @@ const sizes = {
     h: window.innerHeight,
 };
 const scene = new THREE.Scene();
-const camera = new THREE.Camera(75, sizes.w / sizes.h);
+const camera = new THREE.PerspectiveCamera(75, sizes.w / sizes.h);
+camera.position.z = 5;
 scene.add(camera);
+
 
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.w, sizes.h);
 
-renderer.render(scene, camera);
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+const animate = () => {
+    controls.update();
+    renderer.render(scene, camera);
+    window.requestAnimationFrame(animate);
+};
+
+animate();
 

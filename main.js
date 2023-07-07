@@ -24,31 +24,28 @@ const doorAmbientOcclusionTexture = textureLoader.load(
     '/textures/door/ambientOcclusion.jpg'
 );
 const doorHeightTexture = textureLoader.load('/textures/door/height.jpg');
-const doorMetalnessTexture = textureLoader.load('/textures/door/metalness.jpg');
 const doorNormalTexture = textureLoader.load('/textures/door/normal.jpg');
+const doorMetalnessTexture = textureLoader.load('/textures/door/metalness.jpg');
 const doorRoughnessTexture = textureLoader.load('/textures/door/roughness.jpg');
 
 // bricks textures
-const bricksColorTexture = textureLoader.load(
-    './public/textures/bricks/color.jpg'
+const bricksColorTexture = textureLoader.load('/textures/bricks/color.jpg');
+const bricksAmbientOcclusionTexture = textureLoader.load(
+    '/textures/bricks/ambientOcclusion.jpg'
 );
 const bricksNormalTexture = textureLoader.load('/textures/bricks/normal.jpg');
 const bricksRoughnessTexture = textureLoader.load(
     '/textures/bricks/roughness.jpg'
 );
-const bricksAmbientOcclusionTexture = textureLoader.load(
-    '/textures/bricks/ambientOcclusion.jpg'
-);
+
 // grass textures
-const grassColorTexture = textureLoader.load(
-    './public/textures/grass/color.jpg'
+const grassColorTexture = textureLoader.load('/textures/grass/color.jpg');
+const grassAmbientOcclusionTexture = textureLoader.load(
+    '/textures/grass/ambientOcclusion.jpg'
 );
 const grassNormalTexture = textureLoader.load('/textures/grass/normal.jpg');
 const grassRoughnessTexture = textureLoader.load(
     '/textures/grass/roughness.jpg'
-);
-const grassAmbientOcclusionTexture = textureLoader.load(
-    '/textures/grass/ambientOcclusion.jpg'
 );
 
 grassColorTexture.repeat.set(8, 8);
@@ -69,6 +66,14 @@ grassAmbientOcclusionTexture.wrapT = THREE.RepeatWrapping;
  */
 const fog = new THREE.Fog('#262837', 2, 15);
 scene.fog = fog;
+/**
+ * ghots
+ */
+const ghost1 = new THREE.PointLight('#f0f', 2, 3);
+const ghost2 = new THREE.PointLight('#0ff', 2, 3);
+const ghost3 = new THREE.PointLight('#ff0', 2, 3);
+scene.add(ghost1, ghost2, ghost3);
+
 /**
  * floor
  */
@@ -216,7 +221,28 @@ renderer.setClearColor('#262837');
 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+const clock = new THREE.Clock();
 const animate = () => {
+    const elapsedTime = clock.getElapsedTime();
+
+    // Ghosts
+    const ghost1Angle = elapsedTime * 0.5;
+    ghost1.position.x = Math.cos(ghost1Angle) * 4;
+    ghost1.position.z = Math.sin(ghost1Angle) * 4;
+    ghost1.position.y = Math.sin(elapsedTime * 3);
+
+    const ghost2Angle = -elapsedTime * 0.32;
+    ghost2.position.x = Math.cos(ghost2Angle) * 5;
+    ghost2.position.z = Math.sin(ghost2Angle) * 5;
+    ghost2.position.y = Math.sin(elapsedTime * 4) + Math.sin(elapsedTime * 2.5);
+
+    const ghost3Angle = -elapsedTime * 0.18;
+    ghost3.position.x =
+        Math.cos(ghost3Angle) * (7 + Math.sin(elapsedTime * 0.32));
+    ghost3.position.z =
+        Math.sin(ghost3Angle) * (7 + Math.sin(elapsedTime * 0.5));
+    ghost3.position.y = Math.sin(elapsedTime * 4) + Math.sin(elapsedTime * 2.5);
+
     controls.update();
     renderer.render(scene, camera);
     window.requestAnimationFrame(animate);

@@ -28,6 +28,20 @@ scene.add(ambientLight);
 
 const moonLight = new THREE.DirectionalLight('#fff', 0.5);
 moonLight.position.set(4, 5, -2);
+scene.add(moonLight);
+
+/**
+ * debug
+ */
+const gui = new dat.GUI();
+
+const ambientLightFolder = gui.addFolder('ambient light');
+const moonLightfolder = gui.addFolder('moon light');
+ambientLightFolder.add(ambientLight, 'intensity').min(0).max(1).step(0.001);
+moonLightfolder.add(moonLight, 'intensity').min(0).max(1).step(0.001);
+moonLightfolder.add(moonLight.position, 'x').min(0).max(5).step(0.001);
+moonLightfolder.add(moonLight.position, 'y').min(0).max(5).step(0.001);
+moonLightfolder.add(moonLight.position, 'z').min(-2).max(5).step(0.001);
 
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.w, sizes.h);

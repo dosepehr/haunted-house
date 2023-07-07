@@ -12,6 +12,12 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, sizes.w / sizes.h);
 camera.position.set(4, 2, 5);
 scene.add(camera);
+
+/**
+ * FOG
+ */
+const fog = new THREE.Fog('#262837', 2, 15);
+scene.fog = fog;
 /**
  * floor
  */
@@ -123,6 +129,7 @@ moonLightfolder.add(moonLight.position, 'z').min(-2).max(5).step(0.001);
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.w, sizes.h);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor('#262837');
 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;

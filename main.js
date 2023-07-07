@@ -12,7 +12,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, sizes.w / sizes.h);
 camera.position.set(4, 2, 5);
 scene.add(camera);
-
+/**
+ * floor
+ */
 const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(20, 20),
     new THREE.MeshStandardMaterial({ color: '#a9c388' })
@@ -20,6 +22,19 @@ const floor = new THREE.Mesh(
 floor.rotation.x = -Math.PI * 0.5;
 floor.position.y = 0;
 scene.add(floor);
+
+/**
+ * house
+ */
+const house = new THREE.Group();
+scene.add(house);
+// walls
+const walls = new THREE.Mesh(
+    new THREE.BoxGeometry(4, 2.5, 4),
+    new THREE.MeshStandardMaterial({ color: '#ac8e82' })
+);
+walls.position.y = 2.5 / 2;
+house.add(walls);
 
 // lights
 
